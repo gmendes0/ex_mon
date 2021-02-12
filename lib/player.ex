@@ -1,8 +1,10 @@
 defmodule ExMon.Player do
-  @enforce_keys [:life, :name, :move_average, :move_random, :move_heal]
+  alias ExMon.Player.Moves
+
+  @enforce_keys [:life, :name, :moves]
   @max_life 100
 
-  defstruct [:life, :name, :move_average, :move_random, :move_heal]
+  defstruct [:life, :name, :moves]
 
   @doc """
     Return a player struct
@@ -10,9 +12,11 @@ defmodule ExMon.Player do
   def build(name, move_average, move_random, move_heal) do
     %__MODULE__{
       life: @max_life,
-      move_average: move_average,
-      move_heal: move_heal,
-      move_random: move_random,
+      moves: %Moves{
+        move_average: move_average,
+        move_heal: move_heal,
+        move_random: move_random,
+      },
       name: name,
     }
   end
